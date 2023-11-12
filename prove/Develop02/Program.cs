@@ -1,5 +1,8 @@
 using System;
 
+/* 
+* Exceed requirements: Save the journal as json file. Use of Serialize and Deserialize.
+*/
 class Program
 {
     static PromptGenerator _prompt = new PromptGenerator();
