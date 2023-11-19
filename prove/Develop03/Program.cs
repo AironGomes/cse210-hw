@@ -1,5 +1,6 @@
 using System;
 
+//Exceed requirements: Update project to select Word only by those that is not hidden.
 class Program
 {
     private static Reference reference = new Reference("Proverbs", 3, 5, 6);
