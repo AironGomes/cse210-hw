@@ -49,21 +49,21 @@ public class ReflectingActivity : Activity
         DisplayQuestions();
     }
 
-    public string GetRandomPrompt()
+    private string GetRandomPrompt()
     {
         Random randomGenerator = new Random();
         int position = randomGenerator.Next(0, _prompts.Count);
         return _prompts[position];
     }
 
-    public string GetRandomQuestion()
+    private string GetRandomQuestion()
     {
         Random randomGenerator = new Random();
-        int position = randomGenerator.Next(1, _questions.Count-1);
-        return _prompts[position];
+        int position = randomGenerator.Next(0, _questions.Count);
+        return _questions[position];
     }
 
-    public void DisplayPrompt()
+    private void DisplayPrompt()
     {
         string prompt = GetRandomPrompt();
         Console.WriteLine("Consider the following prompt:");
@@ -74,7 +74,7 @@ public class ReflectingActivity : Activity
         Console.WriteLine();
     }
 
-    public void DisplayQuestions()
+    private void DisplayQuestions()
     {
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(_duration);

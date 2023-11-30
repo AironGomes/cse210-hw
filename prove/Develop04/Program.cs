@@ -34,7 +34,8 @@ class Program
                     case "4":
                         break;
                     default:
-                        Console.WriteLine("Invalid value. Try again.");
+                        Console.WriteLine("Invalid value. Press a key to try again.");
+                        Console.ReadLine();
                         break;
                 }
         }
