@@ -1,5 +1,11 @@
 using System;
 
+/* Exceed requirements: Project updated so that in ReflectingActivity it is not possible to place 
+two identical questions in the same cycle. As questions are asked, they are 
+removed from an auxiliary list. When all questions are asked, the ReflectingActivity 
+is finished even if the mentioned time has not occurred.
+*/
+
 class Program
 {
     static BreathingActivity breathingActivity = new BreathingActivity();

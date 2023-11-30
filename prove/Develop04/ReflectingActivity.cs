@@ -56,11 +56,11 @@ public class ReflectingActivity : Activity
         return _prompts[position];
     }
 
-    private string GetRandomQuestion()
+    private string GetRandomQuestion(List<string> questions)
     {
         Random randomGenerator = new Random();
-        int position = randomGenerator.Next(0, _questions.Count);
-        return _questions[position];
+        int position = randomGenerator.Next(0, questions.Count);
+        return questions[position];
     }
 
     private void DisplayPrompt()
@@ -78,10 +78,13 @@ public class ReflectingActivity : Activity
     {
         DateTime startTime = DateTime.Now;
         DateTime endTime = startTime.AddSeconds(_duration);
+        List<string> questions = new List<string>(_questions);
 
-        while (DateTime.Now < endTime)
+        while (DateTime.Now < endTime && questions.Count > 0)
         {
-            string question = GetRandomQuestion();
+            string question = GetRandomQuestion(questions);
+            int index = questions.IndexOf(question);
+            questions.RemoveAt(index);
             Console.Write($"> {question} ");
             ShowSpinner(6);
             Console.WriteLine();
