@@ -11,7 +11,7 @@ public abstract class Goal
         _points = points;
     }
 
-    public abstract void RecordEvent();
+    public abstract int RecordEvent();
 
     public abstract bool IsComplete();
 
@@ -21,4 +21,14 @@ public abstract class Goal
     }
 
     public abstract string GetStringRepresentation();
+
+    public string GetGoalName()
+    {
+        return _shortName;
+    }
+
+    public int GetGoalPoints()
+    {
+        return int.Parse(_points);
+    }
 }

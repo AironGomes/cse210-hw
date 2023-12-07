@@ -1,0 +1,5 @@
+Goal:SimpleGoal;Name:Teste;Description:Testando;Points:100;IsComplete:True
+Goal:EternalGoal;Name:Spiritual;Description:Description;Points:200
+Goal:ChecklistGoal;Name:CheckList;Description:Descr check;Points:300;AmountCompleted:3;Target:3;Bonus:1000
+Goal:ChecklistGoal;Name:eeer;Description:adasdas;Points:10;AmountCompleted:1;Target:9999;Bonus:1
+Goal:ChecklistGoal;Name:qq;Description:qqq;Points:10;AmountCompleted:2;Target:2;Bonus:999999

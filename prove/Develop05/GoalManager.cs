@@ -1,6 +1,5 @@
-using System.Text.Json;
-using System.Text.Json.Serialization;
-
+using System.IO;
+using System.Reflection.Metadata;
 public class GoalManager
 {
     private List<Goal> _goals;
@@ -14,8 +13,6 @@ public class GoalManager
 
     public void Start()
     {
-        DisplayPlayerInfo();
-
         string option = "";
 
         while (option != "6") 
@@ -31,10 +28,13 @@ public class GoalManager
                         ListGoalDetails();
                         break;
                     case "3":
+                        SaveGoals();
                         break;
                     case "4":
+                        LoadGoals();
                         break;
                     case "5":
+                        RecordEvent();
                         break;
                     case "6":
                         break;
@@ -55,6 +55,8 @@ public class GoalManager
 
     private string ChooseOption()
     {
+        DisplayPlayerInfo();
+
         Console.WriteLine("Menu Options:");
         Console.WriteLine(" 1. Create New Goal");
         Console.WriteLine(" 2. List Goals");
@@ -69,23 +71,39 @@ public class GoalManager
 
     private void ListGoalName()
     {
-
+        Console.WriteLine("The goals are:");
+        for (var i = 1; i<= _goals.Count; i++)
+        {
+            Goal goal = _goals[i-1];
+            Console.WriteLine($"{i}. {goal.GetGoalName()}");
+        }
     }
 
     private void ListGoalDetails()
     {
+        Console.WriteLine("The goals are:");
         for (var i = 1; i<= _goals.Count; i++)
         {
-            string detail = _goals[i-1].GetDetailsString();
-            Console.WriteLine($"{i}. [ ] {detail}");
+            Goal goal = _goals[i-1];
+
+            string detail = goal.GetDetailsString();
+            if (goal.IsComplete())
+            {
+                Console.WriteLine($"{i}. [X] {detail}");
+            }
+            else
+            {
+                Console.WriteLine($"{i}. [ ] {detail}");
+            }
         }
+        Console.WriteLine();
     }
 
     private void CreateGoal()
     {
         string option = "";
 
-        while (option != "1" || option != "2" || option != "3") 
+        while (option != "1" && option != "2" && option != "3") 
         {
             option = CreateGoalOptions();
 
@@ -132,6 +150,7 @@ public class GoalManager
         );
 
         AddToGoalList(newGoal);
+        Console.WriteLine();
     }
 
     private void CreateEternalGoal()
@@ -182,17 +201,86 @@ public class GoalManager
 
     private void RecordEvent()
     {
+        ListGoalName();
+        Console.Write("Which goal did you accomplish? ");
+        string choice = Console.ReadLine();
+        int choiceValue = int.Parse(choice);
+
+
+        if(1 <= choiceValue && choiceValue <= _goals.Count)
+        {
+            int points = _goals[choiceValue-1].RecordEvent();
+            _score += points;
+
+        }
+        else
+        {
+            Console.WriteLine("An error occurred while loading the data.");
+        }
     }
 
-    private void SaveGoals(string file)
+    private void SaveGoals()
     {
-        string json = JsonSerializer.Serialize(_goals);
-        File.WriteAllText(@$"{file}", json);
+        Console.Write("What is the filename for the goal file? ");
+        string filename = Console.ReadLine();
+
+        using (StreamWriter outputFile = new StreamWriter(filename))
+        {
+            _goals.ForEach((goal)=> {
+                outputFile.WriteLine(goal.GetStringRepresentation());
+            });
+        }
+        
     }
 
-    private void LoadGoals(string file)
+    private void LoadGoals()
     {
-        string jsonString = File.ReadAllText(file);
-        _goals = JsonSerializer.Deserialize<List<Goal>>(jsonString);
+        Console.Write("What is the filename for the goal file? ");
+        string filename = Console.ReadLine();
+
+        string[] lines = File.ReadAllLines(filename);
+
+        foreach (string line in lines)
+        {
+            string[] parts = line.Split(";");
+
+            string goalType = parts[0].Split(":").Last();
+
+            switch(goalType) 
+                {
+                    case "SimpleGoal":
+                        SimpleGoal simpleGoal = new SimpleGoal(
+                            name: parts[1].Split(":").Last(), 
+                            description: parts[2].Split(":").Last(), 
+                            points: parts[3].Split(":").Last(),
+                            isComplete: bool.Parse(parts[4].Split(":").Last())
+                        );
+                        AddToGoalList(simpleGoal);
+                        break;
+                    case "EternalGoal":
+                        EternalGoal eternalGoal = new EternalGoal(
+                            name: parts[1].Split(":").Last(), 
+                            description: parts[2].Split(":").Last(), 
+                            points: parts[3].Split(":").Last()
+                        );
+                        AddToGoalList(eternalGoal);
+                        break;
+                    case "ChecklistGoal":
+                        ChecklistGoal checklistGoal = new ChecklistGoal(
+                            name: parts[1].Split(":").Last(), 
+                            description: parts[2].Split(":").Last(), 
+                            points: parts[3].Split(":").Last(),
+                            amountCompleted: int.Parse(parts[4].Split(":").Last()),
+                            target: int.Parse(parts[5].Split(":").Last()),
+                            bonus: int.Parse(parts[6].Split(":").Last())
+                        );
+                        AddToGoalList(checklistGoal);
+                        break;
+                    default:
+                        Console.WriteLine("An error occurred while loading the data.");
+                        break;
+                }
+        }
+        
     }
 }
