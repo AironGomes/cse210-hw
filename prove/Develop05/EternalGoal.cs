@@ -1,11 +1,16 @@
 public class EternalGoal : Goal
 {
 
-    public EternalGoal(string name, string description, string points) : base(name, description, points)
-    {}
+    private int _countAchievements;
+
+    public EternalGoal(string name, string description, string points, int countAchievements = 0) : base(name, description, points)
+    {
+        _countAchievements = countAchievements;
+    }
 
     public override int RecordEvent()
     {
+        _countAchievements++;
         return int.Parse(_points);
     }
 
@@ -16,6 +21,11 @@ public class EternalGoal : Goal
 
     public override string GetStringRepresentation()
     {
-        return $"Goal:EternalGoal;Name:{_shortName};Description:{_description};Points:{_points}";
+        return $"Goal:EternalGoal;Name:{_shortName};Description:{_description};Points:{_points};Achievements:{_countAchievements}";
+    }
+
+    public override int GetScorePoints()
+    {
+        return _countAchievements * int.Parse(_points);
     }
 }

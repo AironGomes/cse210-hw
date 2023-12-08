@@ -32,4 +32,15 @@ public class SimpleGoal : Goal
     {
         return $"Goal:SimpleGoal;Name:{_shortName};Description:{_description};Points:{_points};IsComplete:{_isComplete}";
     }
+
+    public override int GetScorePoints()
+    {
+        int result = 0;
+        if(_isComplete)
+        {
+            result += int.Parse(_points);
+        }
+        return result;
+    }
+
 }

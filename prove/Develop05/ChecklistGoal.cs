@@ -47,4 +47,16 @@ public class ChecklistGoal : Goal
     {
         return $"Goal:ChecklistGoal;Name:{_shortName};Description:{_description};Points:{_points};AmountCompleted:{_amountCompleted};Target:{_target};Bonus:{_bonus}";
     }
+
+    public override int GetScorePoints()
+    {
+        if (IsComplete())
+        {
+            return (int.Parse(_points) * _amountCompleted) + _bonus;
+        }
+        else
+        {
+            return int.Parse(_points) * _amountCompleted;
+        }
+    } 
 }

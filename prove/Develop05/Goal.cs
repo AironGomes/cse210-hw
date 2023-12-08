@@ -27,8 +27,5 @@ public abstract class Goal
         return _shortName;
     }
 
-    public int GetGoalPoints()
-    {
-        return int.Parse(_points);
-    }
+    public abstract int GetScorePoints();
 }

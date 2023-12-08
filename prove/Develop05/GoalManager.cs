@@ -211,7 +211,6 @@ public class GoalManager
         {
             int points = _goals[choiceValue-1].RecordEvent();
             _score += points;
-
         }
         else
         {
@@ -256,14 +255,17 @@ public class GoalManager
                             isComplete: bool.Parse(parts[4].Split(":").Last())
                         );
                         AddToGoalList(simpleGoal);
+                        _score += simpleGoal.GetScorePoints();
                         break;
                     case "EternalGoal":
                         EternalGoal eternalGoal = new EternalGoal(
                             name: parts[1].Split(":").Last(), 
                             description: parts[2].Split(":").Last(), 
-                            points: parts[3].Split(":").Last()
+                            points: parts[3].Split(":").Last(),
+                            countAchievements: int.Parse(parts[4].Split(":").Last())
                         );
                         AddToGoalList(eternalGoal);
+                        _score += eternalGoal.GetScorePoints();
                         break;
                     case "ChecklistGoal":
                         ChecklistGoal checklistGoal = new ChecklistGoal(
@@ -275,6 +277,7 @@ public class GoalManager
                             bonus: int.Parse(parts[6].Split(":").Last())
                         );
                         AddToGoalList(checklistGoal);
+                        _score += checklistGoal.GetScorePoints();
                         break;
                     default:
                         Console.WriteLine("An error occurred while loading the data.");
