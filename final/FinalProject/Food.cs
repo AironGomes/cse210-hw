@@ -9,11 +9,12 @@ public class Food: Product
 
     public override bool NearExpiry()
     {
-        return false;
+        DateTime nearExpiring = DateTime.Today.AddMonths(1);     
+        return _validation <= nearExpiring;
     }
 
     public override string GetInfo()
     {
-        return "";
+        return $"{_name} - {_brand}";
     }
 }

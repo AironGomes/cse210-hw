@@ -12,4 +12,9 @@ public abstract class ProductManager
     }
 
     public abstract string GetProductInfo();
+
+    public int GetQuantity()
+    {
+        return _quantity;
+    }
 }
