@@ -1,11 +1,11 @@
 public abstract class Product
 {
     internal string _name;
-    internal int _sku;
+    internal string _sku;
     internal DateTime _validation;
     internal string _brand;
 
-    public Product(string name, int sku, DateTime validation, string brand) 
+    public Product(string name, string sku, DateTime validation, string brand) 
     {
         _name = name;
         _sku = sku;

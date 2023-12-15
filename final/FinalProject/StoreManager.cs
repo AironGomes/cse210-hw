@@ -16,10 +16,10 @@ public class StoreManager
                         StoreInformation();
                         break;
                     case "2":
-                        SalesHistory();
+                        Stock();
                         break;
                     case "3":
-                        Stock();
+                        SalesHistory();
                         break;
                     case "4":
                         SellProduct();
@@ -45,11 +45,11 @@ public class StoreManager
     private string ChooseOption()
     {
         CheckStoreAvailability();
-
+        Console.WriteLine();
         Console.WriteLine("Menu Options:");
         Console.WriteLine(" 1. Store information");
-        Console.WriteLine(" 2. Sales history");
-        Console.WriteLine(" 3. Stock details");
+        Console.WriteLine(" 2. Stock details");
+        Console.WriteLine(" 3. Sales history");
         Console.WriteLine(" 4. Sell product");
         Console.WriteLine(" 5. Load store data");
         Console.WriteLine(" 6. Save");
@@ -104,7 +104,6 @@ public class StoreManager
         Store store = new Store(storeName);
         _store = store;
         Console.WriteLine("Store successfully registered! ");
-        Console.WriteLine();
     }
 
     public void StoreInformation()
@@ -113,10 +112,129 @@ public class StoreManager
     }
 
     public void SalesHistory()
-    {}
+    {
+        _store.ShowSalesHistory();
+    }
 
     public void Stock()
-    {}
+    {
+        string option = ChooseStockMenu();
+
+            switch(option) 
+                {
+                    case "1":
+                        _store.ShowStockProducts();
+                        break;
+                    case "2":
+                        CreateProduct();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid value. Press a key to try again.");
+                        Console.ReadLine();
+                        break;
+                }
+    }
+
+    private string ChooseStockMenu()
+    {
+            Console.WriteLine();
+            Console.WriteLine("Menu Options:");
+            Console.WriteLine(" 1. Stock information");
+            Console.WriteLine(" 2. Add new product");
+            Console.Write("Select a choice from the menu: ");
+            string choice = Console.ReadLine();
+            return choice;
+    }
+
+    public void CreateProduct()
+    {
+        Console.Clear();
+        Console.Write("What is the product sku? ");
+        string sku = Console.ReadLine();
+        Console.Write("What is the product name? ");
+        string name = Console.ReadLine();
+        Console.Write("What is the product brand? ");
+        string brand = Console.ReadLine();
+        Console.Write("What is the product value? ");
+        string value = Console.ReadLine();
+        Console.WriteLine();
+        
+        Console.WriteLine("Please enter the batch expiration date");
+        Console.Write("What is the validation Year: ");
+        string validationYearText = Console.ReadLine();
+        Console.Write("What is the validation Month: ");
+        string validationMonthText = Console.ReadLine();
+        Console.Write("What is the validation Day: ");
+        string validationDayText = Console.ReadLine();
+        Console.WriteLine();
+        Console.Write("How many products from this batch do you want to add? ");
+        string quantity = Console.ReadLine();
+
+        DateTime validation = new DateTime(int.Parse(validationYearText), int.Parse(validationMonthText), int.Parse(validationDayText));
+
+        string type = ChooseProductType();
+
+            switch(type) 
+                {
+                    case "1":
+                        bool isPerishable = AskSimpleQuestion("Is it a perishable food? ");
+                        Food food = new Food(name, sku, validation, brand, isPerishable);
+                        _store.AddStockProduct(food, int.Parse(quantity), double.Parse(value));
+                        break;
+                    case "2":
+                        bool isAdulthood = AskSimpleQuestion("Is it an adults only drink? ");
+                        Drink drink = new Drink(name, sku, validation, brand, isAdulthood);
+                        _store.AddStockProduct(drink, int.Parse(quantity), double.Parse(value));
+                        break;
+                    case "3":
+                        bool isDangerous = AskSimpleQuestion("Is this a dangerous product? ");
+                        CleaningProduct cleaningProduct = new CleaningProduct(name, sku, validation, brand, isDangerous);
+                        _store.AddStockProduct(cleaningProduct, int.Parse(quantity), double.Parse(value));
+                        break;
+                    default:
+                        Console.WriteLine("Invalid value. Try again.");
+                        Console.ReadLine();
+                        break;
+                }
+    }
+
+    private bool AskSimpleQuestion(string question)
+    {
+        string choose = "";
+
+        while (choose != "1" && choose != "2") 
+        {
+            Console.WriteLine();
+            Console.WriteLine(question);
+            Console.WriteLine(" 1. True");
+            Console.WriteLine(" 2. False");
+            Console.Write("Choose one of the options above: ");
+            choose = Console.ReadLine();
+        }
+        bool result;
+        if (choose == "1")
+        {
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+
+        return result;
+    }
+
+    private string ChooseProductType()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Product type:");
+        Console.WriteLine(" 1. Food");
+        Console.WriteLine(" 2. Drink");
+        Console.WriteLine(" 3. Cleaning Product");
+        Console.Write("Choose one of the options above: ");
+        string type = Console.ReadLine();
+        return type;
+    }
 
     public void SellProduct()
     {

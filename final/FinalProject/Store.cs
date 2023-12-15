@@ -13,11 +13,10 @@ public class Store
 
     public void ShowInfo()
     {
-        Console.Clear();
+         Console.WriteLine();
         Console.WriteLine($"Store: {_name}");
         Console.WriteLine($"Items in stock: {_stockList.Count}");
         Console.WriteLine($"Items sold: {_stockList.Count}");
-        Console.WriteLine();
     }
 
     public bool HasStock()
@@ -32,14 +31,58 @@ public class Store
         return false;
     }
 
+    private bool HasSale()
+    {
+        foreach(SalesHistory saleHistory in _salesHistory)
+        {
+            if (saleHistory.GetQuantity() > 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void ShowSalesHistory()
     {
-        Console.WriteLine("Sales history:");
-        Console.WriteLine();
-
-        foreach(SalesHistory sale in _salesHistory)
+        if(!HasSale())
         {
-            sale.GetProductInfo();
+            Console.WriteLine("There is no sales record.");
+            return;
         }
+        else
+        {
+            Console.WriteLine("Sales history:");
+            Console.WriteLine();
+
+            foreach(SalesHistory sale in _salesHistory)
+            {
+                sale.GetProductInfo();
+            }
+        }
+    }
+
+    public void ShowStockProducts()
+    {
+        if(!HasStock())
+        {
+            Console.WriteLine("There are no items in stock.");
+            return;
+        }
+        else
+        {
+            Console.WriteLine("Stock:");
+            Console.WriteLine();
+            foreach(StockProduct stockProduct in _stockList)
+            {
+                stockProduct.GetProductInfo();
+            }
+        }
+    }
+    
+     public void AddStockProduct(Product product, int quantity, double value)
+    {
+        StockProduct stockProduct = new StockProduct(product, quantity, value);
+        _stockList.Add(stockProduct);
     }
 }

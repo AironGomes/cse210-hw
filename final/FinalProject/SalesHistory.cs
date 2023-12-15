@@ -6,8 +6,8 @@ public class SalesHistory : ProductManager
         _saleDate = saleDate;
     }
 
-    public override string GetProductInfo()
+    public override void GetProductInfo()
     {
-        return $"{_saleDate}: {_product} - {_quantity}";
+        Console.WriteLine($"{_saleDate}: {_product} - {_quantity}");
     }
 }

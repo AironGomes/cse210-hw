@@ -2,7 +2,7 @@ public class Food: Product
 {
     private bool _isPerishable;
 
-    public Food(string name, int sku, DateTime validation, string brand, bool isPerishable): base(name, sku, validation, brand) 
+    public Food(string name, string sku, DateTime validation, string brand, bool isPerishable): base(name, sku, validation, brand) 
     {
         _isPerishable = isPerishable;
     }
@@ -15,6 +15,6 @@ public class Food: Product
 
     public override string GetInfo()
     {
-        return $"{_name} - {_brand}";
+       return $"{_name} - {_brand}";
     }
 }

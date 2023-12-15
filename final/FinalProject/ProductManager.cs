@@ -11,7 +11,7 @@ public abstract class ProductManager
         _value = value;
     }
 
-    public abstract string GetProductInfo();
+    public abstract void GetProductInfo();
 
     public int GetQuantity()
     {
