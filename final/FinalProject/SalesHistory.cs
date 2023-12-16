@@ -13,6 +13,6 @@ public class SalesHistory : ProductManager
 
     public override string GetStringRepresentation()
     {
-        return $"ProductManager:SalesHistory;{_product.GetStringRepresentation()};Quantity:{_quantity};Value:{_value};SaleDate^:{_saleDate}";
+        return $"ProductManager:SalesHistory;{_product.GetStringRepresentation()};Quantity:{_quantity};Value:{_value};SaleDate:{_saleDate}";
     }
 }

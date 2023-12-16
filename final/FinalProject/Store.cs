@@ -132,4 +132,99 @@ public class Store
             });
         }
     }
+
+    public void Load()
+    {
+        LoadStock();
+        LoadHistory();
+    }
+
+    private void LoadStock()
+    {
+
+        string[] lines = File.ReadAllLines($"{_name}-stock");
+
+        foreach (string line in lines)
+        {
+            Product product = GetProduct(line);
+            string[] parts = line.Split(";");
+
+            int quantity = int.Parse(parts[7].Split(":").Last());
+            double value = double.Parse(parts[8].Split(":").Last());
+
+            AddStockProduct
+            (
+                product: product,
+                quantity: quantity,
+                value: value
+            );
+        }
+    }
+
+    private void LoadHistory()
+    {
+
+        string[] lines = File.ReadAllLines($"{_name}-history");
+
+        foreach (string line in lines)
+        {
+            Product product = GetProduct(line);
+            string[] parts = line.Split(";");
+
+            int quantity = int.Parse(parts[7].Split(":").Last());
+            double value = double.Parse(parts[8].Split(":").Last());
+            DateTime saleDate = DateTime.Parse(parts[9].Split(":", 2).Last());
+
+
+            SalesHistory salesHistory = new SalesHistory(
+                product, 
+                quantity, 
+                value, 
+                saleDate
+                );
+                _salesHistory.Add(salesHistory);
+        }
+    }
+
+    private Product GetProduct(string line)
+    {
+        string[] parts = line.Split(";");
+        string product = parts[1].Split(":").Last();
+
+            switch(product) 
+                {
+                    case "Food":
+                        Food food = new Food(
+                            name: parts[2].Split(":").Last(), 
+                            sku: parts[3].Split(":").Last(), 
+                            validation: DateTime.Parse(parts[4].Split(":", 2).Last()),
+                            brand: parts[5].Split(":").Last(),
+                            isPerishable: bool.Parse(parts[6].Split(":").Last())
+                        );
+
+                        return food;
+                    case "Drink":
+                        Drink drink = new Drink(
+                            name: parts[2].Split(":").Last(), 
+                            sku: parts[3].Split(":").Last(), 
+                            validation: DateTime.Parse(parts[4].Split(":", 2).Last()),
+                            brand: parts[5].Split(":").Last(),
+                            adulthood: bool.Parse(parts[6].Split(":").Last())
+                        );
+
+                        return drink;
+                    case "CleaningProduct":
+                        CleaningProduct cleaningProduct = new CleaningProduct(
+                            name: parts[2].Split(":").Last(), 
+                            sku: parts[3].Split(":").Last(), 
+                            validation: DateTime.Parse(parts[4].Split(":", 2).Last()),
+                            brand: parts[5].Split(":").Last(),
+                            isDangerous: bool.Parse(parts[6].Split(":").Last())
+                        );
+
+                        return cleaningProduct;
+                }
+                throw new InvalidOperationException("Unidentified product");
+    }
+        
 }

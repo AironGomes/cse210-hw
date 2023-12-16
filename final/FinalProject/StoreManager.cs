@@ -252,15 +252,19 @@ public class StoreManager
         Console.Write("Choose the quantity: ");
         string quantity = Console.ReadLine();
         _store.SellProduct(sku, int.Parse(quantity));
-        
     }
 
     public void Load()
     {
-        //Console.Write("What is the store name? ");
-        //string filename = Console.ReadLine();
+        Console.Clear();
+        Console.Write("What is the store name? ");
+        string storeName = Console.ReadLine();
 
-        
+        Store store = new Store(storeName);
+        _store = store;
+
+        _store.Load(); 
+        Console.WriteLine("Data loaded successfully!");
     }
 
     public void Save()

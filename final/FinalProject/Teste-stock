@@ -1,1 +1,1 @@
-ProductManager:StockProduct;Product:Product:Food;Name:carne;Sku:product1;Validation:10/10/2024 00:00:00;Brand:sadia;isPerishable:True;Quantity:10;Value:10
+ProductManager:StockProduct;Product:Food;Name:carne;Sku:product1;Validation:10/10/2024 00:00:00;Brand:sadia;isPerishable:True;Quantity:7;Value:10
