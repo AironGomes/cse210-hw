@@ -106,12 +106,12 @@ public class StoreManager
         Console.WriteLine("Store successfully registered! ");
     }
 
-    public void StoreInformation()
+    private void StoreInformation()
     {
         _store.ShowInfo();
     }
 
-    public void SalesHistory()
+    private void SalesHistory()
     {
         _store.ShowSalesHistory();
     }
@@ -146,7 +146,7 @@ public class StoreManager
             return choice;
     }
 
-    public void CreateProduct()
+    private void CreateProduct()
     {
         Console.Clear();
         Console.Write("What is the product sku? ");
@@ -236,7 +236,7 @@ public class StoreManager
         return type;
     }
 
-    public void SellProduct()
+    private void SellProduct()
     {
         if(!_store.HasStock())
         {
@@ -254,7 +254,7 @@ public class StoreManager
         _store.SellProduct(sku, int.Parse(quantity));
     }
 
-    public void Load()
+    private void Load()
     {
         Console.Clear();
         Console.Write("What is the store name? ");
@@ -267,12 +267,12 @@ public class StoreManager
         Console.WriteLine("Data loaded successfully!");
     }
 
-    public void Save()
+    private void Save()
     {
         _store.Save();
     }
 
-    public void SaveAndQuit()
+    private void SaveAndQuit()
     {
         Save();
         Console.WriteLine("Thank you!");
