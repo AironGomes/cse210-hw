@@ -16,7 +16,7 @@ public class Store
          Console.WriteLine();
         Console.WriteLine($"Store: {_name}");
         Console.WriteLine($"Items in stock: {_stockList.Count}");
-        Console.WriteLine($"Items sold: {_stockList.Count}");
+        Console.WriteLine($"Items sold: {_salesHistory.Count}");
     }
 
     public bool HasStock()
@@ -84,5 +84,35 @@ public class Store
     {
         StockProduct stockProduct = new StockProduct(product, quantity, value);
         _stockList.Add(stockProduct);
+    }
+
+    public void SellProduct(string sku, int quantity)
+    {
+        bool successfully = false;
+
+        for (int i = 0; i < _stockList.Count && !successfully; i++)
+        {
+            StockProduct sProduct = _stockList[i];
+
+            if (sProduct.CheckEquivalence(sku, quantity))
+            {
+                sProduct.RemoveQuantity(quantity);
+
+                if (sProduct.GetQuantity() <= 0)
+                {
+                    _stockList.RemoveAt(i);
+                }
+
+                SalesHistory salesHistory = new SalesHistory(sProduct.GetProduct(), quantity, sProduct.GetValue(), DateTime.Now);
+                _salesHistory.Add(salesHistory);
+
+                successfully = true;   
+            }
+        }
+
+        if (!successfully)
+        {
+            Console.WriteLine("An error occurred while performing the product transaction.");
+        }
     }
 }

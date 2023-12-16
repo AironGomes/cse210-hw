@@ -8,6 +8,6 @@ public class SalesHistory : ProductManager
 
     public override void GetProductInfo()
     {
-        Console.WriteLine($"{_saleDate}: {_product} - {_quantity}");
+        Console.WriteLine($"{_saleDate}: {_product.GetInfo()} - {_quantity} unit(s)");
     }
 }

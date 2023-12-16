@@ -16,4 +16,9 @@ public abstract class Product
     public abstract bool NearExpiry();
 
     public abstract string GetInfo();
+
+    public string GetSku()
+    {
+        return _sku;
+    }
 }

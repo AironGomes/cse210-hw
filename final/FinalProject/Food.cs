@@ -15,6 +15,20 @@ public class Food: Product
 
     public override string GetInfo()
     {
-       return $"{_name} - {_brand}";
+        string note = "";
+        if(_isPerishable)
+        {
+            note += "[Perishable]";
+        }
+
+        if(NearExpiry())
+        {
+            note += "[Expiring]";
+        }
+        if(note.Length > 0)
+        {
+            return $"{_sku}: {_name} {_brand} - Note: {note}";
+        }
+        return $"{_sku}: {_name} {_brand}";
     }
 }

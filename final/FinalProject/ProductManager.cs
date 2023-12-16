@@ -17,4 +17,13 @@ public abstract class ProductManager
     {
         return _quantity;
     }
+
+    public Product GetProduct(){
+        return _product;
+    }
+
+    public double GetValue()
+    {
+        return _value;
+    }
 }

@@ -244,6 +244,15 @@ public class StoreManager
             return;
         }
         
+        Console.Clear();
+        _store.ShowStockProducts();
+        Console.WriteLine();
+        Console.Write("Choose the product to be sold (by sku): ");
+        string sku = Console.ReadLine();
+        Console.Write("Choose the quantity: ");
+        string quantity = Console.ReadLine();
+        _store.SellProduct(sku, int.Parse(quantity));
+        
     }
 
     public void Load()

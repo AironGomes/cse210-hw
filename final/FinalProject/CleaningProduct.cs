@@ -9,11 +9,26 @@ public class CleaningProduct: Product
 
     public override bool NearExpiry()
     {
-        return false;
+        DateTime nearExpiring = DateTime.Today.AddMonths(6);     
+        return _validation <= nearExpiring;
     }
 
     public override string GetInfo()
     {
-        return "";
+        string note = "";
+        if(_isDangerous)
+        {
+            note += "[Dangerous product]";
+        }
+
+        if(NearExpiry())
+        {
+            note += "[Expiring]";
+        }
+        if(note.Length > 0)
+        {
+            return $"{_sku}: {_name} {_brand} - Note: {note}";
+        }
+        return $"{_sku}: {_name} {_brand}";
     }
 }
