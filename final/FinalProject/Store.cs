@@ -135,13 +135,17 @@ public class Store
 
     public void Load()
     {
-        LoadStock();
-        LoadHistory();
+        bool fileExist = File.Exists($"{_name}-stock");
+        if(fileExist)
+        {
+            LoadStock();
+            LoadHistory();
+        }
+        
     }
 
     private void LoadStock()
     {
-
         string[] lines = File.ReadAllLines($"{_name}-stock");
 
         foreach (string line in lines)

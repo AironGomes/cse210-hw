@@ -1,0 +1,2 @@
+ProductManager:StockProduct;Product:Food;Name:Bread;Sku:111;Validation:12/10/2025 00:00:00;Brand:Kim;isPerishable:True;Quantity:100;Value:5
+ProductManager:StockProduct;Product:CleaningProduct;Name:Cleaner;Sku:999;Validation:15/12/2026 00:00:00;Brand:Super;IsDangerous:False;Quantity:50;Value:40
