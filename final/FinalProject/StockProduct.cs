@@ -18,4 +18,9 @@ public class StockProduct : ProductManager
     {
         _quantity -= quantity;
     }
+
+    public override string GetStringRepresentation()
+    {
+        return $"ProductManager:StockProduct;{_product.GetStringRepresentation()};Quantity:{_quantity};Value:{_value}";
+    }
 }

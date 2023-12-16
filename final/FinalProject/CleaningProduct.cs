@@ -31,4 +31,9 @@ public class CleaningProduct: Product
         }
         return $"{_sku}: {_name} {_brand}";
     }
+
+    public override string GetStringRepresentation()
+    {
+        return $"Product:CleaningProduct;Name:{_name};Sku:{_sku};Validation:{_validation};Brand:{_brand};IsDangerous:{_isDangerous}";
+    }
 }

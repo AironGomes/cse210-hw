@@ -264,8 +264,13 @@ public class StoreManager
     }
 
     public void Save()
-    {}
+    {
+        _store.Save();
+    }
 
     public void SaveAndQuit()
-    {}
+    {
+        Save();
+        Console.WriteLine("Thank you!");
+    }
 }

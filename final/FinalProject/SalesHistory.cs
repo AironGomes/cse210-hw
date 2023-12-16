@@ -10,4 +10,9 @@ public class SalesHistory : ProductManager
     {
         Console.WriteLine($"{_saleDate}: {_product.GetInfo()} - {_quantity} unit(s)");
     }
+
+    public override string GetStringRepresentation()
+    {
+        return $"ProductManager:SalesHistory;{_product.GetStringRepresentation()};Quantity:{_quantity};Value:{_value};SaleDate^:{_saleDate}";
+    }
 }

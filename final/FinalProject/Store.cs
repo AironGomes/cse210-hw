@@ -115,4 +115,21 @@ public class Store
             Console.WriteLine("An error occurred while performing the product transaction.");
         }
     }
+
+    public void Save()
+    {
+        using (StreamWriter outputFile = new StreamWriter($"{_name}-stock"))
+        {
+            _stockList.ForEach((stockProduct)=> {
+                outputFile.WriteLine(stockProduct.GetStringRepresentation());
+            });
+        }
+
+        using (StreamWriter outputFile = new StreamWriter($"{_name}-history"))
+        {
+            _salesHistory.ForEach((salesHistory)=> {
+                outputFile.WriteLine(salesHistory.GetStringRepresentation());
+            });
+        }
+    }
 }

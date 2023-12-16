@@ -12,6 +12,7 @@ public abstract class ProductManager
     }
 
     public abstract void GetProductInfo();
+    public abstract string GetStringRepresentation();
 
     public int GetQuantity()
     {

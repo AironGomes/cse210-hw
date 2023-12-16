@@ -31,4 +31,9 @@ public class Drink: Product
         }
         return $"{_sku}: {_name} {_brand}";
     }
+
+    public override string GetStringRepresentation()
+    {
+        return $"Product:Drink;Name:{_name};Sku:{_sku};Validation:{_validation};Brand:{_brand};Adulthood:{_adulthood}";
+    }
 }

@@ -31,4 +31,9 @@ public class Food: Product
         }
         return $"{_sku}: {_name} {_brand}";
     }
+
+    public override string GetStringRepresentation()
+    {
+        return $"Product:Food;Name:{_name};Sku:{_sku};Validation:{_validation};Brand:{_brand};isPerishable:{_isPerishable}";
+    }
 }
